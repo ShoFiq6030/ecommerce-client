@@ -4,32 +4,50 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
-import { login } from '@/lib/api';
-import { setAuthCookie } from '@/lib/auth';
+import { signIn } from "next-auth/react";
+
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  try {
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
 
-    try {
-      const response = await login(email, password);
-      setAuthCookie(response.token);
-      toast.success('Login successful!');
-      setTimeout(() => {
-        router.push('/products');
-      }, 1000);
-    } catch (error) {
-      toast.error(error.message || 'Login failed');
-    } finally {
-      setLoading(false);
+    if (res?.error) {
+      toast.error("Invalid email or password");
+      return;
     }
+
+    toast.success("Login successfully");
+    router.push("/");
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong");
+  } finally {
+    setLoading(false);
+  }
+};
+
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault();
+
+    await signIn("google", {
+      callbackUrl: "/",
+    });
   };
+
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -39,10 +57,14 @@ export default function LoginPage() {
           <h2 className="text-center text-3xl font-extrabold text-gray-900 dark:text-white">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            Use credentials: admin@ecommerce.com / password123
-          </p>
+
         </div>
+        <div>
+          {/* <!-- Google --> */}
+          <button onClick={handleGoogleLogin} className="btn bg-white w-full text-black border-[#e5e5e5]">
+            <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
+            Login with Google
+          </button></div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -92,7 +114,7 @@ export default function LoginPage() {
 
             <div className="text-sm">
               <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400">
-                Don't have an account?
+                {`Don't have an account?`}
               </Link>
             </div>
           </div>
@@ -115,14 +137,16 @@ export default function LoginPage() {
           </div>
         </form>
 
+
+
         {/* Demo credentials hint */}
-        <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-md">
+        {/* <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-md">
           <p className="text-xs text-blue-800 dark:text-blue-200">
             <strong>Demo Credentials:</strong><br />
             Email: admin@ecommerce.com<br />
             Password: password123
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

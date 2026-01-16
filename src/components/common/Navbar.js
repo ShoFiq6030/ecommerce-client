@@ -1,18 +1,13 @@
-'use client';
+
+"use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { isAuthenticated, logout } from '../lib/auth';
+import { useSession } from 'next-auth/react';
+import LoginUserInfo from './LoginUserInfo';
 
 export default function Navbar() {
-  const pathname = usePathname();
-  const isLoggedIn = isAuthenticated();
-
-  const handleLogout = () => {
-    logout();
-  };
-
-  const isActive = (path) => pathname === path;
+  const { data: session, status } = useSession();
+  const isActive = true;
 
   return (
     <nav className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
@@ -27,60 +22,49 @@ export default function Navbar() {
 
           {/* Navigation Links */}
           <div className="flex items-center space-x-8">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className={`text-sm font-medium transition-colors ${
-                isActive('/') 
-                  ? 'text-blue-600 dark:text-blue-400' 
+                isActive
+                  ? 'text-blue-600 dark:text-blue-400'
                   : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
               }`}
             >
               Home
             </Link>
 
-            <Link 
-              href="/products" 
+            <Link
+              href="/products"
               className={`text-sm font-medium transition-colors ${
-                isActive('/products') 
-                  ? 'text-blue-600 dark:text-blue-400' 
+                isActive
+                  ? 'text-blue-600 dark:text-blue-400'
                   : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
               }`}
             >
               Products
             </Link>
-
-            {isLoggedIn && (
-              <Link 
-                href="/add-product" 
-                className={`text-sm font-medium transition-colors ${
-                  isActive('/add-product') 
-                    ? 'text-blue-600 dark:text-blue-400' 
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                }`}
-              >
-                Add Product
-              </Link>
-            )}
           </div>
 
           {/* Auth Buttons */}
           <div className="flex items-center space-x-4">
-            {isLoggedIn ? (
-              <button
-                onClick={handleLogout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                Logout
-              </button>
+            {status === "loading" ? (
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+                <div className="hidden md:block">
+                  <div className="w-24 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                </div>
+              </div>
+            ) : session ? (
+              <LoginUserInfo />
             ) : (
               <>
-                <Link 
+                <Link
                   href="/login"
                   className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
                 >
                   Login
                 </Link>
-                <Link 
+                <Link
                   href="/register"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                 >
