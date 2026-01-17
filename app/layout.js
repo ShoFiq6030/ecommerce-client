@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/src/components/common/Navbar";
 import Footer from "@/src/components/common/Footer";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "@/src/context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,16 +22,23 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning data-theme="light">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900`}
       >
         <SessionProvider>
-          <Navbar />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </ThemeProvider>
         </SessionProvider>
       </body>
     </html>

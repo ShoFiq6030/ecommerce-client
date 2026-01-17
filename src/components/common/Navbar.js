@@ -4,42 +4,44 @@
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import LoginUserInfo from './LoginUserInfo';
+import { ModeToggle } from './ModeToggle';
+
 
 export default function Navbar() {
   const { data: session, status } = useSession();
+
   const isActive = true;
 
+
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+    <nav className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-gray-800 dark:to-gray-900 shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-blue-600 dark:text-blue-400">
+            <Link href="/" className="text-xl font-bold text-white hover:text-blue-100 transition-colors">
               E-Shop
             </Link>
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-6">
             <Link
               href="/"
-              className={`text-sm font-medium transition-colors ${
-                isActive
-                  ? 'text-blue-600 dark:text-blue-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-              }`}
+              className={`text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200 ${isActive
+                ? 'bg-white/20 text-white shadow-sm'
+                : 'text-blue-100 hover:bg-white/10 hover:text-white'
+                }`}
             >
               Home
             </Link>
 
             <Link
               href="/products"
-              className={`text-sm font-medium transition-colors ${
-                isActive
-                  ? 'text-blue-600 dark:text-blue-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-              }`}
+              className={`text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200 ${isActive
+                ? 'bg-white/20 text-white shadow-sm'
+                : 'text-blue-100 hover:bg-white/10 hover:text-white'
+                }`}
             >
               Products
             </Link>
@@ -47,11 +49,14 @@ export default function Navbar() {
 
           {/* Auth Buttons */}
           <div className="flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <ModeToggle />
+
             {status === "loading" ? (
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+                <div className="w-8 h-8 rounded-full bg-white/20 animate-pulse"></div>
                 <div className="hidden md:block">
-                  <div className="w-24 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                  <div className="w-24 h-4 bg-white/20 rounded animate-pulse"></div>
                 </div>
               </div>
             ) : session ? (
@@ -60,13 +65,13 @@ export default function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 text-sm font-medium"
+                  className="text-white/90 hover:text-white text-sm font-medium px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
                 >
                   Sign Up
                 </Link>

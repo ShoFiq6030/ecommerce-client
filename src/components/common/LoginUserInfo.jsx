@@ -27,9 +27,9 @@ export default function LoginUserInfo() {
   if (status === "loading") {
     return (
       <div className="flex items-center space-x-3">
-        <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse"></div>
+        <div className="w-8 h-8 rounded-full bg-white/20 animate-pulse"></div>
         <div className="hidden md:block">
-          <div className="w-24 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+          <div className="w-24 h-4 bg-white/20 rounded animate-pulse"></div>
         </div>
       </div>
     );
@@ -51,12 +51,12 @@ export default function LoginUserInfo() {
       {/* User Info Button */}
       <button
         onClick={() => setShowDropdown(!showDropdown)}
-        className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex items-center space-x-2 p-2 rounded-lg hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
         aria-label="User menu"
         aria-expanded={showDropdown}
       >
         {/* User Avatar */}
-        <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-blue-500">
+        <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white/50">
           {user?.image ? (
             <Image
               width={400}
@@ -67,7 +67,7 @@ export default function LoginUserInfo() {
               sizes="32px"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+            <div className="w-full h-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white text-xs font-bold">
               {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
             </div>
           )}
@@ -75,17 +75,17 @@ export default function LoginUserInfo() {
 
         {/* User Name and Email (Desktop) */}
         <div className="hidden md:block text-left">
-          <p className="text-sm font-medium text-gray-900 dark:text-white leading-tight">
+          <p className="text-sm font-medium text-white leading-tight">
             {user?.name || "User"}
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400 leading-tight">
+          <p className="text-xs text-white/80 leading-tight">
             {user?.email || "No email"}
           </p>
         </div>
 
         {/* Dropdown Arrow */}
         <svg
-          className={`w-4 h-4 text-gray-600 dark:text-gray-300 transition-transform ${
+          className={`w-4 h-4 text-white transition-transform ${
             showDropdown ? "rotate-180" : ""
           }`}
           fill="none"
