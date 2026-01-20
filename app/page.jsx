@@ -1,33 +1,39 @@
-import Link from 'next/link';
+import { CarouselPlugin } from "@/src/components/homepage/heroCarousel";
+import Link from "next/link";
+import Marquee from "react-fast-marquee";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen container mx-auto bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold mb-6">
-            Welcome to E-Shop
-          </h1>
-          <p className="text-xl mb-8 text-blue-100">
-            Discover premium products at unbeatable prices. Quality you can trust, service you deserve.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link 
-              href="/products"
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
-            >
-              Shop Now
-            </Link>
-            <Link 
-              href="/add-product"
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
-            >
-              Add Product
-            </Link>
+      <div className="bg-gradient-to-r from-blue-300 to-blue-500 text-white py-2 mb-5">
+        <Marquee>
+          <span className="mx-10 flex items-center gap-2">
+            Use promo code-<h2 className="font-bold ">SCIC2026 {" "} </h2> for 10% off
+            on all items!
+          </span>
+          <span className="mx-10 flex items-center gap-2">
+            Use promo code-<h2 className="font-bold ">SCIC2026 {" "} </h2> for 10% off
+            on all items!
+          </span>
+          <span className="mx-10 flex items-center gap-2">
+            Use promo code-<h2 className="font-bold ">SCIC2026 {" "} </h2> for 10% off
+            on all items!
+          </span>
+        </Marquee>
+      </div>
+
+      <div className="pl-15 flex mb-10 justify-center gap-5">
+        <CarouselPlugin />
+        <div className="flex flex-col gap-5 p-10">
+          <div className="border-2 w-80 h-60 flex items-center justify-center">
+            <h1 className="dark:text-white">adds</h1>
+          </div>
+          <div className="border-2 w-80 h-60 flex items-center justify-center">
+            <h1 className="dark:text-white">adds</h1>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Featured Products Section */}
       <section className="py-16 bg-white dark:bg-gray-800">
@@ -37,15 +43,24 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[1, 2, 3].map((item) => (
-              <div key={item} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+              <div
+                key={item}
+                className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow"
+              >
                 <div className="bg-gray-200 dark:bg-gray-600 h-48 rounded-lg mb-4 flex items-center justify-center">
                   <span className="text-gray-400">Product Image</span>
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Premium Item {item}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">High-quality product with excellent features.</p>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
+                  Premium Item {item}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  High-quality product with excellent features.
+                </p>
                 <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-blue-600">${99 + item * 50}</span>
-                  <Link 
+                  <span className="text-2xl font-bold text-blue-600">
+                    ${99 + item * 50}
+                  </span>
+                  <Link
                     href={`/products/${item}`}
                     className="text-blue-600 hover:text-blue-800 font-medium"
                   >
@@ -65,12 +80,19 @@ export default function Home() {
             Browse Categories
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {['Electronics', 'Fashion', 'Furniture', 'Sports'].map((category) => (
-              <div key={category} className="bg-white dark:bg-gray-800 p-6 rounded-lg text-center hover:shadow-md transition-shadow cursor-pointer">
-                <div className="text-4xl mb-3">📦</div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">{category}</h3>
-              </div>
-            ))}
+            {["Electronics", "Fashion", "Furniture", "Sports"].map(
+              (category) => (
+                <div
+                  key={category}
+                  className="bg-white dark:bg-gray-800 p-6 rounded-lg text-center hover:shadow-md transition-shadow cursor-pointer"
+                >
+                  <div className="text-4xl mb-3">📦</div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">
+                    {category}
+                  </h3>
+                </div>
+              ),
+            )}
           </div>
         </div>
       </section>
@@ -106,13 +128,22 @@ export default function Home() {
             What Our Customers Say
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {['Amazing quality!', 'Fast shipping!', 'Great service!'].map((testimonial, idx) => (
-              <div key={idx} className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
-                <div className="text-yellow-400 mb-3">★★★★★</div>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">{'"' + testimonial + '"'}</p>
-                <div className="font-semibold text-gray-900 dark:text-white">Customer {idx + 1}</div>
-              </div>
-            ))}
+            {["Amazing quality!", "Fast shipping!", "Great service!"].map(
+              (testimonial, idx) => (
+                <div
+                  key={idx}
+                  className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg"
+                >
+                  <div className="text-yellow-400 mb-3">★★★★★</div>
+                  <p className="text-gray-700 dark:text-gray-300 mb-4">
+                    {'"' + testimonial + '"'}
+                  </p>
+                  <div className="font-semibold text-gray-900 dark:text-white">
+                    Customer {idx + 1}
+                  </div>
+                </div>
+              ),
+            )}
           </div>
         </div>
       </section>
@@ -126,23 +157,39 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-4xl mb-3">🚚</div>
-              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Free Shipping</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">On orders over $100</p>
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">
+                Free Shipping
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                On orders over $100
+              </p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-3">↩️</div>
-              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Easy Returns</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">30-day return policy</p>
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">
+                Easy Returns
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                30-day return policy
+              </p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-3">🔒</div>
-              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Secure Payment</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">100% secure checkout</p>
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">
+                Secure Payment
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                100% secure checkout
+              </p>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-3">⭐</div>
-              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">Best Quality</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Premium products only</p>
+              <h3 className="font-semibold mb-2 text-gray-900 dark:text-white">
+                Best Quality
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Premium products only
+              </p>
             </div>
           </div>
         </div>
@@ -151,26 +198,24 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Ready to Get Started?
-          </h2>
+          <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-xl mb-8 text-blue-100">
             Join thousands of satisfied customers today.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Link 
+            <Link
               href="/register"
               className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
             >
               Create Account
             </Link>
-            <Link 
+            <Link
               href="/login"
               className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
             >
               Sign In
             </Link>
-            <Link 
+            <Link
               href="/products"
               className="bg-purple-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-900 transition-colors"
             >
