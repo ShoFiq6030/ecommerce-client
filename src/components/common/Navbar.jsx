@@ -1,17 +1,15 @@
-
 "use client";
 
-import Link from 'next/link';
-import { useSession } from 'next-auth/react';
-import LoginUserInfo from './LoginUserInfo';
-import { ModeToggle } from './ModeToggle';
-
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import LoginUserInfo from "./LoginUserInfo";
+import { ModeToggle } from "./ModeToggle";
+import { Search } from "lucide-react";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
 
   const isActive = true;
-
 
   return (
     <nav className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-gray-800 dark:to-gray-900 shadow-lg sticky top-0 z-50">
@@ -19,29 +17,36 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-white hover:text-blue-100 transition-colors">
+            <Link
+              href="/"
+              className="text-xl font-bold text-white hover:text-blue-100 transition-colors"
+            >
               E-Shop
             </Link>
           </div>
+          in
+          <Search className="text-white" />
 
           {/* Navigation Links */}
           <div className="flex items-center space-x-6">
             <Link
               href="/"
-              className={`text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200 ${isActive
-                ? 'bg-white/20 text-white shadow-sm'
-                : 'text-blue-100 hover:bg-white/10 hover:text-white'
-                }`}
+              className={`text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200 ${
+                isActive
+                  ? "bg-white/20 text-white shadow-sm"
+                  : "text-blue-100 hover:bg-white/10 hover:text-white"
+              }`}
             >
               Home
             </Link>
 
             <Link
               href="/products"
-              className={`text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200 ${isActive
-                ? 'bg-white/20 text-white shadow-sm'
-                : 'text-blue-100 hover:bg-white/10 hover:text-white'
-                }`}
+              className={`text-sm font-medium px-3 py-2 rounded-lg transition-all duration-200 ${
+                isActive
+                  ? "bg-white/20 text-white shadow-sm"
+                  : "text-blue-100 hover:bg-white/10 hover:text-white"
+              }`}
             >
               Products
             </Link>

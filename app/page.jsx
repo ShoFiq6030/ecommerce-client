@@ -4,33 +4,68 @@ import Marquee from "react-fast-marquee";
 
 export default function Home() {
   return (
-    <div className="min-h-screen container mx-auto bg-gray-50 dark:bg-gray-900">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-300 to-blue-500 text-white py-2 mb-5">
-        <Marquee>
-          <span className="mx-10 flex items-center gap-2">
-            Use promo code-<h2 className="font-bold ">SCIC2026 {" "} </h2> for 10% off
-            on all items!
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Promo Banner */}
+      <div className="bg-gradient-to-r from-blue-400 via-purple-600 to-pink-500 text-white py-2">
+        <Marquee gradient={false} speed={40}>
+          <span className="mx-8 flex items-center gap-2 text-sm sm:text-base font-medium">
+            <span className="text-yellow-300">🔥</span> Use promo code{" "}
+            <span className="font-bold bg-white/20 px-2 py-0.5 rounded">
+              SCIC2026
+            </span>{" "}
+            for 10% off on all items!
           </span>
-          <span className="mx-10 flex items-center gap-2">
-            Use promo code-<h2 className="font-bold ">SCIC2026 {" "} </h2> for 10% off
-            on all items!
+          <span className="mx-8 flex items-center gap-2 text-sm sm:text-base font-medium">
+            <span className="text-yellow-300">🚚</span> Free shipping on orders
+            over $100
           </span>
-          <span className="mx-10 flex items-center gap-2">
-            Use promo code-<h2 className="font-bold ">SCIC2026 {" "} </h2> for 10% off
-            on all items!
+          <span className="mx-8 flex items-center gap-2 text-sm sm:text-base font-medium">
+            <span className="text-yellow-300">↩️</span> 30-day easy returns
           </span>
         </Marquee>
       </div>
 
-      <div className="pl-15 flex mb-10 justify-center gap-5">
-        <CarouselPlugin />
-        <div className="flex flex-col gap-5 p-10">
-          <div className="border-2 w-80 h-60 flex items-center justify-center">
-            <h1 className="dark:text-white">adds</h1>
+      {/* Modern Hero Section */}
+      <div className="container mx-auto px-4 py-8 md:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          {/* Main Carousel - Takes 2 columns on large screens */}
+          <div className="lg:col-span-2">
+            <CarouselPlugin />
           </div>
-          <div className="border-2 w-80 h-60 flex items-center justify-center">
-            <h1 className="dark:text-white">adds</h1>
+
+          {/* Side Ads - Modern Card Design */}
+          <div className="flex  flex-col justify-center items-center gap-4 lg:gap-6 lg:col-span-1">
+            <div className="relative group lg:h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 h-48  flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300"></div>
+              <div className="relative z-10 text-center p-4">
+                <div className="text-4xl md:text-5xl mb-2">⚡</div>
+                <h3 className="text-white font-bold text-lg md:text-xl">
+                  Flash Deals
+                </h3>
+                <p className="text-blue-100 text-sm md:text-base mt-1">
+                  Limited time offers
+                </p>
+                <span className="inline-block mt-3 px-4 py-1.5 bg-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/30 transition-colors">
+                  View Deals →
+                </span>
+              </div>
+            </div>
+
+            <div className="relative group lg:h-full w-full overflow-hidden rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 h-48  flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300"></div>
+              <div className="relative z-10 text-center p-4">
+                <div className="text-4xl md:text-5xl mb-2">🎁</div>
+                <h3 className="text-white font-bold text-lg md:text-xl">
+                  New User
+                </h3>
+                <p className="text-purple-100 text-sm md:text-base mt-1">
+                  Special welcome offer
+                </p>
+                <span className="inline-block mt-3 px-4 py-1.5 bg-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/30 transition-colors">
+                  Claim Now →
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
