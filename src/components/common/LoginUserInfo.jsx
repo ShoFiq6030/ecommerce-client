@@ -14,6 +14,10 @@ export default function LoginUserInfo() {
   const handleLogout = async () => {
     setLoading(true);
     try {
+      // Clear user-id from localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('userId');
+      }
       await signOut({ callbackUrl: "/login" });
     } catch (error) {
       console.error("Logout error:", error);

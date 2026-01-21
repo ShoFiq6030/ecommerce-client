@@ -69,6 +69,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async session({ session, token }) {
       session.user = token.user;
+      // Store user-id in localStorage for client-side API calls
+      if (typeof window !== 'undefined' && session?.user?._id) {
+        localStorage.setItem('userId', session.user._id);
+      }
       return session;
     },
   },
