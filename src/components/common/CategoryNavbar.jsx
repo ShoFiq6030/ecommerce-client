@@ -1,24 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 
 export default function CategoryNavbar({ isOpen, onClose }) {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    try {
-      fetchCategories();
-      async function fetchCategories() {
-        // Build API URL
-        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-        const url = `${API_BASE_URL}/categories`;
-        const response = await fetch(url);
-        const data = await response.json();
-        setCategories(data?.categories || []);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+      return res.json();
+    },
+  });
+
+  // console.log(data);
 
   // Icon mapping for each category
   const categoryIcons = {
@@ -113,7 +107,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
           <div className="flex items-center justify-between h-12">
             {/* Categories Navigation */}
             <div className="flex items-center space-x-1 overflow-x-auto">
-              {categories.length === 0 ? (
+              {isPending ? (
                 // Skeleton Loader
                 <>
                   {[1, 2, 3, 4, 5].map((skeleton) => (
@@ -127,7 +121,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
                   ))}
                 </>
               ) : (
-                categories.map((category) => (
+                data.categories.map((category) => (
                   <Link
                     key={category._id}
                     href={`/products?category=${category.name}`}
@@ -211,7 +205,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
           {/* Categories List */}
           <div className="overflow-y-auto h-[calc(100%-60px)] p-4">
             <div className="space-y-2">
-              {categories.length === 0 ? (
+              {isPending ? (
                 // Skeleton Loader for Mobile
                 <>
                   {[1, 2, 3, 4, 5].map((skeleton) => (
@@ -225,7 +219,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
                   ))}
                 </>
               ) : (
-                categories.map((category) => (
+                data.categories.map((category) => (
                   <Link
                     key={category._id}
                     href={`/products?category=${category.name}`}
