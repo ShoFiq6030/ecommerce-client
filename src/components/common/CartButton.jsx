@@ -8,7 +8,9 @@ import Link from "next/link";
 export default function CartButton() {
   const { data: session, status } = useSession();
   const userId = session?.user?.user?._id;
-  console.log(userId);
+  // console.log(userId);
+
+  
   const { data } = useQuery({
     queryKey: ["cartItems"],
     queryFn: async () => {

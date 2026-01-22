@@ -40,9 +40,7 @@ export default function LoginPage() {
   }
 };
 
-  const handleGoogleLogin = async (e) => {
-    e.preventDefault();
-
+  const handleGoogleLogin = async () => {
     await signIn("google", {
       callbackUrl: "/",
     });

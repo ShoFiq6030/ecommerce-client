@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 
@@ -121,7 +121,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
                   ))}
                 </>
               ) : (
-                data.categories.map((category) => (
+                data?.categories.map((category) => (
                   <Link
                     key={category._id}
                     href={`/products?category=${category.name}`}
@@ -219,7 +219,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
                   ))}
                 </>
               ) : (
-                data.categories.map((category) => (
+                data?.categories.map((category) => (
                   <Link
                     key={category._id}
                     href={`/products?category=${category.name}`}

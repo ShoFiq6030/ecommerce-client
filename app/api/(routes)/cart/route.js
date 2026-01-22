@@ -1,4 +1,4 @@
-import { auth } from "@/src/lib/auth";
+import { auth } from "@/lib/auth";
 
 export async function GET() {
     const session = await auth();
@@ -8,7 +8,7 @@ export async function GET() {
     }
 
     const userId = session.user.user._id;
-    console.log(userId);
+    // console.log(userId);
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart`, {
         headers: {
             "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export async function POST(request) {
 
     const body = await request.json();
 
-    console.log(userId);
+    // console.log(userId);
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart`, {
         method: "POST",
         headers: {

@@ -39,8 +39,8 @@ export default function ProductAction({ product }) {
   const isInCart = cartItems?.session?.items?.some(
     (item) => item._id === product._id,
   );
-  console.log(isInCart);
-  console.log(product);
+  // console.log(isInCart);
+  // console.log(product);
   return (
     <div className="flex gap-4 pt-4">
       <Button

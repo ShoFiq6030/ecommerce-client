@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAuthCookie } from './auth';
+import { getAuthCookie } from '../../lib/auth';
 
 // API base URL
 const API_BASE_URL = process.env.API_URL || 'http://localhost:5000/api/v1';

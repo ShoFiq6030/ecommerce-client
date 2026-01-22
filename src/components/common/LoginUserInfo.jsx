@@ -48,7 +48,7 @@ export default function LoginUserInfo() {
   if (session.user.user) {
     user = session.user.user;
   }
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="relative">
