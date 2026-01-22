@@ -1,9 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/src/components/common/Navbar";
+import CategoryNavbarWrapper from "@/src/components/common/CategoryNavbarWrapper";
 import Footer from "@/src/components/common/Footer";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/src/context/ThemeContext";
+import QueryProvider from "@/src/provider/QueryProvider";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,20 +28,28 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900`}
       >
-        <SessionProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Navbar />
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
-          </ThemeProvider>
-        </SessionProvider>
+        <QueryProvider>
+          <SessionProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+            <CategoryNavbarWrapper />
+              <main className="flex-grow">
+                {children}
+                <Toaster
+                  position="top-right"
+                  toastOptions={{
+                    duration: 2000,
+                  }}
+                />
+              </main>
+              <Footer />
+            </ThemeProvider>
+          </SessionProvider>
+        </QueryProvider>
       </body>
     </html>
   );

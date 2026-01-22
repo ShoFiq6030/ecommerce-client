@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import LoginUserInfo from "./LoginUserInfo";
 import { ModeToggle } from "./ModeToggle";
-import { Search, X } from "lucide-react";
+import { Search, X, Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { ShoppingCart } from "lucide-react";
+import CartButton from "./CartButton";
 
-export default function Navbar() {
+export default function Navbar({ toggleSidebar }) {
   const { data: session, status } = useSession();
   const [openSearchInput, setOpenSearchInput] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -38,18 +40,10 @@ export default function Navbar() {
           "Content-Type": "application/json",
         };
 
-        // Add user-id to headers if available in localStorage
-        if (typeof window !== "undefined") {
-          const userId = localStorage.getItem("userId");
-          if (userId) {
-            headers["user-id"] = userId;
-          }
-        }
-
         // Make direct fetch request
         const response = await fetch(url, {
           method: "GET",
-          headers: headers,
+          headers,
         });
 
         if (!response.ok) {
@@ -87,6 +81,13 @@ export default function Navbar() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
+              {/* Hamburger Menu - Mobile Only */}
+              <button
+                onClick={toggleSidebar}
+                className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors mr-2"
+              >
+                <Menu className="text-white" size={24} />
+              </button>
               <Link
                 href="/"
                 className="text-xl font-bold text-white hover:text-blue-100 transition-colors"
@@ -148,6 +149,9 @@ export default function Navbar() {
             {/* Auth Buttons */}
 
             <div className="flex items-center space-x-4">
+              {/* cart button  */}
+              <CartButton />
+
               {/* Theme Toggle */}
               <ModeToggle />
 
