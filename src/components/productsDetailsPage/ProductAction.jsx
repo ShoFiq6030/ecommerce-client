@@ -9,16 +9,14 @@ import { useSession } from "next-auth/react";
 
 export default function ProductAction({ product }) {
   const queryClient = useQueryClient();
-  const { data: session, status } = useSession();
-  const userId = session?.user?.user?._id;
+ 
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart`, {
+      const res = await fetch(`/api/cart`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "user-id": userId },
+        headers: { "Content-Type": "application/json", },
         body: JSON.stringify({ productId: product._id, quantity: 1 }),
-        credentials: "include",
       });
 
       if (!res.ok) throw new Error("Failed to add to cart");

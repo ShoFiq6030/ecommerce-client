@@ -18,12 +18,10 @@ export default function CartButton() {
   });
   const cartItems = data?.session?.items || [];
   return (
-    <Link
-      href="/cart"
-     className="relative p-4">
+    <Link href="/cart" className="relative p-4">
       {" "}
       <ShoppingCart className=" text-white hover:text-blue-200 cursor-pointer"></ShoppingCart>
-      <div className="z-200 bg-red-200 absolute top-1 right-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold">
+      <div className={`z-200 bg-red-200 absolute top-2 right-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold ${cartItems?.length>0 && "animate-bounce"}`}>
         <p>{cartItems?.length}</p>
       </div>
     </Link>

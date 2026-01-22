@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import CategoryNavbarWrapper from "@/src/components/common/CategoryNavbarWrapper";
+import FloatingCartButton from "@/src/components/common/FloatingCartButton";
 import Footer from "@/src/components/common/Footer";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/src/context/ThemeContext";
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
                 />
               </main>
               <Footer />
+              <FloatingCartButton />
             </ThemeProvider>
           </SessionProvider>
         </QueryProvider>

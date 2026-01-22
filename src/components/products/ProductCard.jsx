@@ -1,13 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import AddToCart from "./AddToCart";
+import ProductAction from "../productsDetailsPage/ProductAction";
 
 export default function ProductCard({ product }) {
   return (
-    <Link
-      href={`/products/${product._id}`}
-      className="group block bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700"
-    >
+    <div className="group block bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700">
       {/* Product Image */}
       <div className="relative aspect-square overflow-hidden bg-gray-100 dark:bg-gray-700">
         {product.images && product.images[0] ? (
@@ -35,14 +34,14 @@ export default function ProductCard({ product }) {
             </svg>
           </div>
         )}
-        
+
         {/* Badge - Optional */}
         {product.isNew && (
           <span className="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
             NEW
           </span>
         )}
-        
+
         {product.isFeatured && (
           <span className="absolute top-2 right-2 bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full">
             FEATURED
@@ -60,9 +59,12 @@ export default function ProductCard({ product }) {
         )}
 
         {/* Product Name */}
-        <h3 className="mt-1 text-gray-900 dark:text-white font-semibold text-sm line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        <Link
+          href={`/products/${product._id}`}
+          className="mt-1 text-gray-900 hover:underline dark:text-white font-semibold text-sm line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+        >
           {product.name}
-        </h3>
+        </Link>
 
         {/* Description */}
         {product.description && (
@@ -76,7 +78,7 @@ export default function ProductCard({ product }) {
           <span className="text-lg font-bold text-gray-900 dark:text-white">
             ${product.price?.toFixed(2) || "0.00"}
           </span>
-          
+
           {/* Rating */}
           {product.rating && (
             <div className="flex items-center space-x-1">
@@ -108,10 +110,14 @@ export default function ProductCard({ product }) {
             )}
           </div>
         )}
+
+        {/* Add to Cart Button */}
+        <ProductAction product={product} />
+        {/* <AddToCart  /> */}
       </div>
 
       {/* Hover Overlay */}
-      <div className="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-    </Link>
+      {/* <div className="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div> */}
+    </div>
   );
 }

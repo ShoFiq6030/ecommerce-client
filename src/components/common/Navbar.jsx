@@ -243,6 +243,12 @@ export default function Navbar({ toggleSidebar }) {
           </div>
         </div>
       )}
+      {/* bottom right cart button  */}
+      <div className="fixed top-40 right-10 z-100">
+        <div className="md:hidden">
+          <CartButton />
+        </div>
+      </div>
     </>
   );
 }
