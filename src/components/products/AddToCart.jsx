@@ -6,7 +6,10 @@ import { useRouter } from "next/navigation";
 export default function AddToCart({ product }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  console.log(product);
 
+  
+  
   const handleAddToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -59,6 +62,7 @@ export default function AddToCart({ product }) {
       setLoading(false);
     }
   };
+
 
   return (
     <button

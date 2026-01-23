@@ -3,13 +3,13 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
 
 export default function ProductAction({ product }) {
   const queryClient = useQueryClient();
- 
+//  console.log(product);
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -33,19 +33,25 @@ export default function ProductAction({ product }) {
     },
   });
 
-  const cartItems = queryClient.getQueryData(["cartItems"]);
-  console.log(cartItems?.session?.items);
+ const { data } = useQuery({
+    queryKey: ["cartItems"],
+    queryFn: async () => {
+      const res = await fetch("/api/cart");
+      return res.json();
+    },
+  });
+  const cartItems = data?.session?.items || [];
 
-  const isInCart = cartItems?.session?.items?.some(
-    (item) => item._id === product._id,
-  );
-  // console.log(isInCart);
+
+ const isItemInCart = cartItems.some(item => item.productId._id === product._id);
+;
+  console.log(isItemInCart);
   // console.log(product);
   return (
     <div className="flex gap-4 pt-4">
       <Button
         onClick={() => mutation.mutate()}
-        disabled={mutation.isPending || product.inventoryCount === 0}
+        disabled={mutation.isPending || product.inventoryCount === 0 || isItemInCart}
         size="lg"
         className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
       >
@@ -56,8 +62,8 @@ export default function ProductAction({ product }) {
             </div>
             <span className="ml-2">Adding...</span>
           </>
-        ) : isInCart ? (
-          <p>Already added</p>
+        ) : isItemInCart ? (
+          <p>Already in Cart</p>
         ) : (
           <>
             <ShoppingCart size={20} className="mr-2" />
