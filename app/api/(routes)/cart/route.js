@@ -7,7 +7,7 @@ export async function GET() {
         return new Response("Unauthorized", { status: 401 });
     }
 
-    const userId = session.user.user._id;
+    const userId = session.user._id;
     // console.log(userId);
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart`, {
         headers: {
@@ -30,9 +30,10 @@ export async function POST(request) {
 
     if (!session) {
         return new Response("Unauthorized", { status: 401 });
-    }
 
-    const userId = session.user.user._id;
+    }
+    console.log(session);
+    const userId = session.user._id;
 
     const body = await request.json();
 

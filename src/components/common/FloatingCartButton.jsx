@@ -53,9 +53,9 @@ export default function FloatingCartButton() {
       href="/cart"
       className="fixed bottom-6 right-6 z-50 group"
     >
-      <div className="relative">
+      <div className="relative hidden md:block">
         {/* Main Button */}
-        <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:from-blue-500 group-hover:to-blue-600">
+        <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl">
           <ShoppingCart className="text-white w-6 h-6" />
           
           {/* Pulse Animation */}
@@ -83,7 +83,7 @@ export default function FloatingCartButton() {
         <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-full shadow-lg flex items-center justify-center">
           <ShoppingCart className="text-white w-5 h-5" />
           {cartCount > 0 && (
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold animate-bounce">
               {cartCount > 99 ? "99+" : cartCount}
             </div>
           )}
