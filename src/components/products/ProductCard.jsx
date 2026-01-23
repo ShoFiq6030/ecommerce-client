@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import AddToCart from "./AddToCart";
+
 import ProductAction from "../productsDetailsPage/ProductAction";
 
 export default function ProductCard({ product }) {
@@ -113,7 +113,7 @@ export default function ProductCard({ product }) {
 
         {/* Add to Cart Button */}
         <ProductAction product={product} />
-        {/* <AddToCart  /> */}
+        
       </div>
 
       {/* Hover Overlay */}
