@@ -1,19 +1,33 @@
 "use client";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { Trash2, Plus, Minus, ShoppingCart, ArrowRight, CreditCard } from "lucide-react";
+import {
+  Trash2,
+  Plus,
+  Minus,
+  ShoppingCart,
+  ArrowRight,
+  CreditCard,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import CartSkeleton from "@/src/components/common/CartSkeleton";
 
 export default function CartPage() {
   const queryClient = useQueryClient();
   const [isUpdating, setIsUpdating] = useState(false);
 
   // Get cart data from cache
-  const { data: cartData } = useQuery({
+  const { data: cartData, isLoading } = useQuery({
     queryKey: ["cartItems"],
     staleTime: 0,
   });
@@ -84,6 +98,11 @@ export default function CartPage() {
     checkoutMutation.mutate();
   };
 
+  // Show loader while loading cart data
+  if (isLoading) {
+    return <CartSkeleton />;
+  }
+
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
@@ -92,7 +111,9 @@ export default function CartPage() {
             <div className="w-20 h-20 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
               <ShoppingCart className="w-10 h-10 text-gray-500 dark:text-gray-400" />
             </div>
-            <CardTitle className="text-2xl font-bold">Your cart is empty</CardTitle>
+            <CardTitle className="text-2xl font-bold">
+              Your cart is empty
+            </CardTitle>
             <p className="text-gray-600 dark:text-gray-400">
               Add some products to your cart to get started
             </p>
@@ -113,7 +134,9 @@ export default function CartPage() {
           <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
             <ShoppingCart className="w-6 h-6 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Shopping Cart</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Shopping Cart
+          </h1>
           <Badge variant="secondary" className="ml-2 text-sm">
             {items.length} items
           </Badge>
@@ -180,7 +203,9 @@ export default function CartPage() {
                       <div className="flex items-center justify-between mt-3">
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                            onClick={() =>
+                              handleQuantityChange(item.id, item.quantity - 1)
+                            }
                             disabled={isUpdating || item.quantity <= 1}
                             className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                           >
@@ -190,7 +215,9 @@ export default function CartPage() {
                             {item.quantity}
                           </span>
                           <button
-                            onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                            onClick={() =>
+                              handleQuantityChange(item.id, item.quantity + 1)
+                            }
                             disabled={isUpdating}
                             className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                           >
@@ -202,7 +229,7 @@ export default function CartPage() {
                             ${(item.unitPrice * item.quantity).toLocaleString()}
                           </p>
                           <p className="text-sm text-gray-500 dark:text-gray-400">
-                            ${(item.unitPrice).toLocaleString()} each
+                            ${item.unitPrice.toLocaleString()} each
                           </p>
                         </div>
                       </div>
@@ -217,7 +244,9 @@ export default function CartPage() {
           <div className="lg:col-span-1">
             <Card className="sticky top-8">
               <CardHeader>
-                <CardTitle className="text-xl font-bold">Order Summary</CardTitle>
+                <CardTitle className="text-xl font-bold">
+                  Order Summary
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Subtotal */}
@@ -229,7 +258,9 @@ export default function CartPage() {
                 {/* Shipping */}
                 <div className="flex justify-between text-gray-600 dark:text-gray-300">
                   <span>Shipping</span>
-                  <span className="text-green-600 dark:text-green-400">Free</span>
+                  <span className="text-green-600 dark:text-green-400">
+                    Free
+                  </span>
                 </div>
 
                 {/* Tax */}
@@ -240,7 +271,9 @@ export default function CartPage() {
 
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold text-gray-900 dark:text-white">Total</span>
+                    <span className="text-lg font-bold text-gray-900 dark:text-white">
+                      Total
+                    </span>
                     <span className="text-2xl font-bold text-primary">
                       ${(total + Math.round(total * 0.1)).toLocaleString()}
                     </span>
@@ -273,23 +306,25 @@ export default function CartPage() {
                   </p>
                   <div className="flex gap-2">
                     <div className="flex-1 h-10 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center">
-                      <span className="text-xs font-medium text-gray-600 dark:text-gray-300">VISA</span>
+                      <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+                        VISA
+                      </span>
                     </div>
                     <div className="flex-1 h-10 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center">
-                      <span className="text-xs font-medium text-gray-600 dark:text-gray-300">MC</span>
+                      <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+                        MC
+                      </span>
                     </div>
                     <div className="flex-1 h-10 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center">
-                      <span className="text-xs font-medium text-gray-600 dark:text-gray-300">AMEX</span>
+                      <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
+                        AMEX
+                      </span>
                     </div>
                   </div>
                 </div>
 
                 {/* Continue Shopping */}
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  asChild
-                >
+                <Button variant="outline" className="w-full" asChild>
                   <Link href="/">Continue Shopping</Link>
                 </Button>
               </CardContent>

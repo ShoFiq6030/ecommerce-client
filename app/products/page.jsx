@@ -1,8 +1,14 @@
 import React from "react";
 import ProductCard from "@/src/components/products/ProductCard";
 
-export default async function ProductsPage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`, {
+export default async function ProductsPage({ searchParams }) {
+  const sp = await searchParams;
+  const categoryId = sp?.categoryId;
+  const category = sp?.category;
+  const url = new URL(`${process.env.API_URL}/products`);
+
+  if (categoryId) url.searchParams.set("categoryId", categoryId);
+  const res = await fetch(url.toString(), {
     cache: "no-store",
   });
   const data = await res.json();
@@ -13,8 +19,8 @@ export default async function ProductsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            All Products
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white capitalize ">
+            {category ? `${category} Products` : "All Products"}
           </h1>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
             Browse our collection of premium products

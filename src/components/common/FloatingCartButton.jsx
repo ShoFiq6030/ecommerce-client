@@ -44,9 +44,9 @@ export default function FloatingCartButton() {
     return null; // Don't show while loading session
   }
 
-  if (!session) {
-    return null; // Don't show if not logged in
-  }
+  // if (!session) {
+  //   return null; // Don't show if not logged in
+  // }
 
   return (
     <Link

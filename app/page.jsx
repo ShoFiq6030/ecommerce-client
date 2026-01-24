@@ -1,8 +1,9 @@
 import { CarouselPlugin } from "@/src/components/homepage/heroCarousel";
 import Link from "next/link";
 import Marquee from "react-fast-marquee";
+import FeaturedProducts from "@/src/components/homepage/FeaturedProducts";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Promo Banner */}
@@ -39,9 +40,11 @@ export default function Home() {
               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300"></div>
               <div className="relative z-10 text-center p-4">
                 <div className="text-4xl md:text-5xl mb-2">⚡</div>
-                <h3 className="text-white font-bold text-lg md:text-xl">
+                <Link
+                  href="/products"
+                 className="text-white font-bold text-lg md:text-xl">
                   Flash Deals
-                </h3>
+                </Link>
                 <p className="text-blue-100 text-sm md:text-base mt-1">
                   Limited time offers
                 </p>
@@ -71,42 +74,7 @@ export default function Home() {
       </div>
 
       {/* Featured Products Section */}
-      <section className="py-16 bg-white dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-            Featured Products
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <div
-                key={item}
-                className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow"
-              >
-                <div className="bg-gray-200 dark:bg-gray-600 h-48 rounded-lg mb-4 flex items-center justify-center">
-                  <span className="text-gray-400">Product Image</span>
-                </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">
-                  Premium Item {item}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  High-quality product with excellent features.
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-2xl font-bold text-blue-600">
-                    ${99 + item * 50}
-                  </span>
-                  <Link
-                    href={`/products/${item}`}
-                    className="text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    View Details →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeaturedProducts />
 
       {/* Categories Section */}
       <section className="py-16 bg-gray-100 dark:bg-gray-900">

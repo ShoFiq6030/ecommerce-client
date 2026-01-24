@@ -124,7 +124,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
                 data?.categories.map((category) => (
                   <Link
                     key={category._id}
-                    href={`/products?category=${category.name}`}
+                    href={`/products?categoryId=${category._id}&category=${category.name}`}
                     className="flex items-center space-x-2 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 whitespace-nowrap group"
                   >
                     <span className="text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">
@@ -140,7 +140,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
 
             {/* View All Categories Link */}
             <Link
-              href="/categories"
+              href="/products"
               className="flex items-center space-x-1 px-4 py-2 rounded-lg text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 font-medium text-sm"
             >
               <svg
@@ -238,7 +238,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
 
               {/* View All Categories Link */}
               <Link
-                href="/categories"
+                href="/products"
                 onClick={onClose}
                 className="flex items-center space-x-3 px-4 py-3 rounded-lg text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 font-medium text-sm mt-4 border-t border-gray-200 dark:border-gray-700 pt-4"
               >
