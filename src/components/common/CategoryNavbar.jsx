@@ -2,8 +2,10 @@
 import React from "react";
 import Link from "next/link";
 import { QueryClient, useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 
 export default function CategoryNavbar({ isOpen, onClose }) {
+  const { data: session } = useSession();
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
@@ -173,7 +175,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
 
         {/* Sidebar */}
         <div
-          className={`absolute left-0 top-0 h-full w-80 bg-white dark:bg-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out ${
+          className={`absolute left-0 top-0 h-full w-50 bg-white dark:bg-gray-800/95 shadow-xl transform transition-transform duration-300 ease-in-out ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -257,8 +259,28 @@ export default function CategoryNavbar({ isOpen, onClose }) {
                 </svg>
                 <span>View All Categories</span>
               </Link>
+              {session ? null : (
+                <div className="mt-6 space-y-3 flex flex-col">
+                  <Link
+                    href="/login"
+                    className="w-full text-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/register"
+                    className="w-full text-center border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
+
+          {/* auth buttons mobile */}
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700"></div>
+          <div className="flex flex-col space-y-3"></div>
         </div>
       </div>
     </>
