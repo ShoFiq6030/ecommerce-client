@@ -224,7 +224,7 @@ export default function CategoryNavbar({ isOpen, onClose }) {
                 data?.categories.map((category) => (
                   <Link
                     key={category._id}
-                    href={`/products?category=${category.name}`}
+                    href={`/products?categoryId=${category._id}&category=${category.name}`}
                     onClick={onClose}
                     className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 group"
                   >
