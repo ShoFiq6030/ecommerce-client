@@ -10,7 +10,7 @@ export default function ProductImgGallery({ product }) {
       {" "}
       <div className="space-y-4">
         {/* Main Image */}
-        <div className="relative aspect-20/10 bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
+        <div className="relative aspect-20/20 bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg">
           {product.images && product.images.length > 0 ? (
             <Image
               src={product.images[selectedImage]}

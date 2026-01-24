@@ -188,11 +188,7 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-          <div className="text-gray-900 dark:text-white animate-spin">
-            Loading...
-          </div>
-        </div>
+        <span className="loading loading-spinner loading-xl"></span>
       }
     >
       <LoginContent />
